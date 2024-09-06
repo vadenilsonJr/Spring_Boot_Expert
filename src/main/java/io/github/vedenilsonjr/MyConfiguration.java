@@ -2,11 +2,8 @@ package io.github.vedenilsonjr;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
 
-@Configuration
-@Profile("develop")
+@develop
 public class MyConfiguration {
 
    @Bean(name = "applicationName")

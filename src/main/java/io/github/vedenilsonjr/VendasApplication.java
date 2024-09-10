@@ -30,6 +30,13 @@ public class VendasApplication {
             List<Cliente> todosClientes = clientes.obterTodos();
             todosClientes.forEach(System.out::println);
 
+            clientes.buscarPorNome("al");
+
+
+
+
+
+
             todosClientes.forEach(c ->{
                 clientes.deletar(c.getId());
             });

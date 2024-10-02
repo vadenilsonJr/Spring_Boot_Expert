@@ -1,11 +1,25 @@
 package io.github.vedenilsonjr.entity;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Set;
 
+@Entity
+@Table
 public class Produto {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column
     private int id;
+
+    @OneToMany(mappedBy = "pedido")
+    private Set<ItemPedido> itens;
+
+    @Column
     private String descricao;
+
+    @Column
     private BigDecimal precoUnitario;
 
     public int getId() {

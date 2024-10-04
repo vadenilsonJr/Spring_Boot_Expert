@@ -37,22 +37,29 @@ public class ProdutoController {
     }
 
     @GetMapping("/{id}")
-    public Produto findById(@PathVariable int id){
+    public Produto getById(@PathVariable int id){
         return produtos.findById(id).orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
     @DeleteMapping("/{id}")
-
-    public Produto delete(@PathVariable int id){
-        return produtos.findById(id).map(produto -> {
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void  delete (@PathVariable int id){
+        produtos.findById(id).map(produto -> {
             produtos.delete(produto);
-            return produto;
+            return Void.TYPE;
         }).orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
-    public List<Produto> list (Produto filtro){
-        ExampleMatcher matcher = ExampleMatcher.matching().withIgnoreCase().withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING);
-        Example example = Example.of(filtro,matcher);
+
+    @GetMapping
+    public List<Produto> find(Produto filtro ){
+        ExampleMatcher matcher = ExampleMatcher
+                .matching()
+                .withIgnoreCase()
+                .withStringMatcher(
+                        ExampleMatcher.StringMatcher.CONTAINING );
+
+        Example example = Example.of(filtro, matcher);
         return produtos.findAll(example);
-    }
+        }
 }
